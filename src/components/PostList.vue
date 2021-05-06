@@ -33,14 +33,21 @@
                 </router-link>
                 <span>{{post.last_reply_at | setTime}}</span>
             </li>
+            <li>
+                <Pagination></Pagination>
+            </li>
         </ul>
     </div>
 </div>
 </template>
 
 <script>
+    import Pagination from './Pagination'
     export default {
         name: "PostList",
+        components: {
+            Pagination
+        },
         data(){
           return {
               isLoading: true,

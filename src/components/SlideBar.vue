@@ -14,7 +14,7 @@
         <div>
             <p>作者最近主题</p>
             <ul>
-                <li v-for="list in this.userInfo.recent_topics" :key="list.value">
+                <li v-for="list in replylimitby5" :key="list.value">
                     {{list.title}}
                 </li>
             </ul>
@@ -22,7 +22,7 @@
         <div>
             <p>作者最近回复</p>
             <ul>
-                <li v-for="list in  this.userInfo.recent_topics" :key="list.value">
+                <li v-for="list in topiclimitby5" :key="list.value">
                         {{list.title}}
                 </li>
             </ul>
@@ -35,7 +35,10 @@
         name: "SlideBar",
         data(){
             return {
-                userInfo:{}
+                userInfo:{
+                    recent_topics:[],
+                    recent_replies:[]
+                },
             }
         },
         methods: {
@@ -51,17 +54,18 @@
             }
         },
         computed: {
-            // replylimitby5: function (){
-            //     if(this.userInfo.recent_topics){
-            //         return this.userInfo.recent_topics.slice(0,5)
-            //     }
-            // },
-            //
-            // topiclimitby5: function (){
-            //     if(this.userInfo.recent_replies){
-            //         return this.userInfo.recent_replies.slice(0,5)
-            //     }
-            // }
+            replylimitby5: function (){
+                if(this.userInfo.recent_topics.length > 5){
+                     this.userInfo.recent_topics.slice(0,5)
+                }
+            },
+
+            topiclimitby5: function (){
+                if(this.userInfo.recent_replies){
+                    return this.userInfo.recent_replies.slice(0,5)
+                }
+            }
+
         },
         beforeMount(){
             // this.isLoading = true;//加载成功之前显示加载动画
