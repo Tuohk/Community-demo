@@ -12,9 +12,9 @@
                     <li>• {{post.visit_count}}次浏览</li>
                     <li>• 来自{{post | tabFormatter}}</li>
                 </ul>
-                <div v-html="post.content"></div>
+                <div class="postContent" v-html="post.content"></div>
             </div>
-            <div>
+            <div class="replyContent">
                 <div class="topbar">回复</div>
                 <div v-for="(reply,index) in post.replies" :key="index">
                     <router-link :to = "{
@@ -76,5 +76,56 @@
 </script>
 
 <style scoped>
+    @import url('../assets/markdown-github.css');
+    .article {
+        width: 80%;
+        float: left;
+        line-height: 40px;
+    }
+    .topicHeader{
+        padding: 10px;
+        background-color: #ffffff;
+        margin-bottom: 15px;
+    }
+    .topicHeader li {
+        text-decoration: none;
+        margin-left: 10px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        display: inline-block;
+        font-size: 12px;
+        color: #838383;
+    }
+    .postContent {
+        border-top: 1px solid #e5e5e5;
+        padding: 0 10px;
+    }
+    .topicTitle {
+        font-size: 20px;
+        font-weight: 700;
+        padding-top: 8px;
+    }
+
+    .replyContent{
+        border: 1px solid black;
+    }
+    .replyContent a {
+        text-decoration: none;
+        color: #666666;
+        margin-left: 10px;
+    }
+    .replyContent img {
+        width: 30px;
+        height: 30px;
+        margin-top: 10px;
+    }
+    .replyContent p {
+        border: 1px solid red;
+    }
+    .topbar {
+        padding: 10px;
+        background-color: #f6f6f6;
+        font-size: 12px;
+    }
 
 </style>

@@ -8,20 +8,29 @@
         <ul>
             <li>
                 <div class="toobar">
-                    <span>全部</span>
-                    <span>精华</span>
-                    <span>分享</span>
-                    <span>问答</span>
-                    <span>招聘</span>
+                    <a href="#"><span> 全部 </span></a>
+                    <a href="#"><span> 精华 </span></a>
+                    <a href="#"><span> 分享 </span></a>
+                    <a href="#"><span> 问答 </span></a>
+                    <a href="#"><span> 招聘 </span></a>
                 </div>
             </li>
             <li v-for="post in posts" :key="post.index">
                 <img :src="post.author.avatar_url" alt="">
-                <span>{{post.reply_count}} /{{post.visit_count}}</span>
-                <span :class="[{putGood : (post.good == true),putTop : (post.top == true),
-                topListTab : (post.good != true && post.top != true)}]">
-                    {{post | tabFormatter}}
+
+                <span class="allcount">
+                    <span class="visitCount">{{post.visit_count}}</span> /{{post.reply_count}}
                 </span>
+
+                <span class="tab">
+                    <span :class="[{
+                        putGood : (post.good == true),
+                        putTop : (post.top == true),
+                        topListTab : (post.good != true && post.top != true)}]">
+                    {{post | tabFormatter}}
+                    </span>
+                </span>
+
                 <router-link :to="{
                     name: 'post_content',
                     params: {
@@ -29,9 +38,14 @@
                         name:post.author.loginname
                     }
                 }">
-                    <span>{{post.title}}</span>
+                    <span class="title">{{post.title}}</span>
+
                 </router-link>
-                <span>{{post.last_reply_at | setTime}}</span>
+
+                <span class="lastReply">
+                    <div>{{post.last_reply_at | setTime}}</div>
+                </span>
+
             </li>
             <li>
                 <Pagination></Pagination>
@@ -77,24 +91,100 @@
 
 <style scoped>
     .PostList {
-        border: 1px solid red;
-        margin-left: auto;
-        margin-right: auto;
-        float: left;
+        width: 80%;
+        margin: 10px auto;
+        background-color: #ffffff;
     }
-    .Posts {
-        margin-top: 10px;
-    }
+
     .PostList img {
         width: 30px;
         height: 30px;
         vertical-align: middle;
     }
+    .toobar > a {
+        color: #80bd01;
+        cursor: pointer;
+        line-height: 40px;
+        margin: 0 20px;
+
+    }
+    .toobar > a:hover{
+        color: #9e78c0;
+        text-decoration: none;
+    }
     ul {
+        list-style: none;
+        /*border: 1px solid black;*/
         width: 100%;
         max-width: 1344px;
-        margin: 0 auto;
+    }
+    li {
+        /*border: 1px solid blue;*/
+        justify-content: space-around;
+
+    }
+    ul li:not(:first-child) {
+        padding: 9px;
+        font-size: 15px;
+        font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, sans-serif !important;
+        font-weight: 400;
+        background-color: white;
+        color: #333;
+        border-top: 1px solid #f0f0f0;
+    }
+    li:not(:first-child):hover {
+        background: #f5f5f5;;
+    }
+    li:first-child {
+        background-color: #f5f5f5;
+    }
+    li:last-child:hover {
+        background: white;
     }
 
+    .Posts > ul > li span {
+        font-size: 14px;
+        line-height: 30px;
+    }
+    a {
+        text-decoration: none;
+        color:black;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    .putTop,.putGood{
+        background: #80bd01;
+        margin: 4px;
+        color: #fff;
+    }
 
+    .topListTab{
+        background-color: #e5e5e5;
+        margin: 4px;
+        color: #999;
+    }
+
+    .allcount {
+        width: 70px;
+        display: inline-block;
+        text-align: center;
+        font-size: 12px;
+    }
+    .visitCount {
+        color: #9e78c0;
+        font-size: 13px !important;
+    }
+    .tab {
+        margin-right: 10px;
+    }
+    .title {
+        font-size: 15px;
+    }
+    .lastReply {
+        float: right;
+        font-size: 10px !important;
+        text-align: right;
+        color: #778087;
+    }
 </style>
